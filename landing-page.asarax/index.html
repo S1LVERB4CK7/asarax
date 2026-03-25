@@ -366,12 +366,12 @@ footer{border-top:1px solid var(--border);padding:52px var(--px);display:flex;al
     <a href="#process">Processo</a>
     <a href="#results">Resultados</a>
   </nav>
-  <a 
-  href="https://wa.me/5514991081875?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20tenho%20interesse%20nos%20servi%C3%A7os%20de%20voc%C3%AAs.%20Gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es%20e%20receber%20um%20or%C3%A7amento.%20%F0%9F%98%80" 
-  target="_blank"
->
-  Fale com a Equipe
-</a>
+  <!-- CORREÇÃO 1: Botão do header com mensagem pré-pronta -->
+  <a href="https://wa.me/5514991081875?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20ASARAX%20e%20gostaria%20de%20conversar%20com%20a%20equipe.%20Podem%20me%20ajudar%3F%20%F0%9F%9A%80" 
+     target="_blank" 
+     class="nav-cta">
+    Falar com a equipe
+  </a>
 </header>
 
 <section class="hero">
@@ -581,18 +581,19 @@ footer{border-top:1px solid var(--border);padding:52px var(--px);display:flex;al
         <span class="err-msg">Por favor, insira seu nome.</span>
       </div>
 
-<div class="field" id="fieldEmail">
-  <label for="inputEmail">E-mail profissional</label>
-  <input
-    type="email"
-    id="inputEmail"
-    placeholder="joao@empresa.com"
-    autocomplete="email"
-    maxlength="120"
-  />
-  <div class="field-line"></div>
-  <span class="err-msg">Por favor, insira um e-mail válido.</span>
-</div>
+      <div class="field" id="fieldEmail">
+        <label for="inputEmail">E-mail profissional</label>
+        <input
+          type="email"
+          id="inputEmail"
+          placeholder="joao@empresa.com"
+          autocomplete="email"
+          maxlength="120"
+        />
+        <div class="field-line"></div>
+        <span class="err-msg">Por favor, insira um e-mail válido.</span>
+      </div>
+
       <div class="field" id="fieldTel">
         <label for="inputTel">WhatsApp / Telefone</label>
         <input
@@ -708,7 +709,7 @@ function validatePhone(phone) {
   return phone.replace(/\D/g, '').length >= 10;
 }
 
-/* ── Form submit → WhatsApp ── */
+/* ── CORREÇÃO 2: Form submit → WhatsApp com mensagem personalizada com dados do cliente ── */
 function handleSubmit() {
   const nome  = document.getElementById('inputNome').value.trim();
   const email = document.getElementById('inputEmail').value.trim();
@@ -727,11 +728,9 @@ function handleSubmit() {
   btn.classList.add('loading');
   btn.disabled = true;
 
-  /* Build WhatsApp message */
-const msg = encodeURIComponent(
-  "Olá! Tenho interesse nos serviços da ASARAX e gostaria de falar com a equipe."
-);
-  const wppURL = `https://wa.me/5514991081875?text=${msg}`;
+  /* Build WhatsApp message com dados do cliente */
+  const msgTexto = `Olá! Me chamo ${nome} e vim pelo site da ASARAX. 🚀\n\nTenho interesse nos serviços de vocês e gostaria de saber mais sobre como posso escalar meu negócio.\n\nMeu e-mail: ${email}\nMeu WhatsApp: ${tel}\n\nAguardo o contato!`;
+  const wppURL = `https://wa.me/5514991081875?text=${encodeURIComponent(msgTexto)}`;
 
   /* Simulate brief processing then show success */
   setTimeout(() => {
