@@ -366,10 +366,7 @@ footer{border-top:1px solid var(--border);padding:52px var(--px);display:flex;al
     <a href="#process">Processo</a>
     <a href="#results">Resultados</a>
   </nav>
-  <!-- CORREÇÃO 1: Botão do header com mensagem pré-pronta -->
-  <a href="https://wa.me/5514991081875?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20ASARAX%20e%20gostaria%20de%20conversar%20com%20a%20equipe.%20Podem%20me%20ajudar%3F%20%F0%9F%9A%80" 
-     target="_blank" 
-     class="nav-cta">
+  <a href="#" onclick="abrirWhatsApp('Olá! Vim pelo site da ASARAX e gostaria de conversar com a equipe. Podem me ajudar? 🚀'); return false;" class="nav-cta">
     Falar com a equipe
   </a>
 </header>
@@ -639,6 +636,17 @@ footer{border-top:1px solid var(--border);padding:52px var(--px);display:flex;al
 </footer>
 
 <script>
+/* ── Função central WhatsApp — funciona em mobile e desktop ── */
+function abrirWhatsApp(texto) {
+  var numero = '5514991081875';
+  var msg = encodeURIComponent(texto);
+  var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+  var url = isMobile
+    ? 'https://api.whatsapp.com/send?phone=' + numero + '&text=' + msg
+    : 'https://web.whatsapp.com/send?phone=' + numero + '&text=' + msg;
+  window.open(url, '_blank');
+}
+
 /* ── Header scroll ── */
 const hdr = document.getElementById('hdr');
 window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 60), { passive: true });
@@ -730,7 +738,7 @@ function handleSubmit() {
 
   /* Build WhatsApp message com dados do cliente */
   const msgTexto = `Olá! Me chamo ${nome} e vim pelo site da ASARAX. 🚀\n\nTenho interesse nos serviços de vocês e gostaria de saber mais sobre como posso escalar meu negócio.\n\nMeu e-mail: ${email}\nMeu WhatsApp: ${tel}\n\nAguardo o contato!`;
-  const wppURL = `https://wa.me/5514991081875?text=${encodeURIComponent(msgTexto)}`;
+  const wppURL = 'https://api.whatsapp.com/send?phone=5514991081875&text=' + encodeURIComponent(msgTexto);
 
   /* Simulate brief processing then show success */
   setTimeout(() => {
@@ -749,7 +757,7 @@ function handleSubmit() {
     successEl.style.display = 'flex';
 
     /* Auto-open WhatsApp */
-    window.open(wppURL, '_blank');
+    abrirWhatsApp(msgTexto);
 
   }, 900);
 }
