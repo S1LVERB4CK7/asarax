@@ -640,11 +640,14 @@ footer{border-top:1px solid var(--border);padding:52px var(--px);display:flex;al
 function abrirWhatsApp(texto) {
   var numero = '5514991081875';
   var msg = encodeURIComponent(texto);
-  var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-  var url = isMobile
-    ? 'https://api.whatsapp.com/send?phone=' + numero + '&text=' + msg
-    : 'https://web.whatsapp.com/send?phone=' + numero + '&text=' + msg;
-  window.open(url, '_blank');
+  var url = 'https://wa.me/' + numero + '?text=' + msg;
+  var a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 /* ── Header scroll ── */
@@ -753,7 +756,7 @@ function handleSubmit() {
     document.querySelector('.form-note').style.display    = 'none';
 
     const successEl = document.getElementById('formSuccess');
-    document.getElementById('successWppLink').href = wppURL;
+    document.getElementById('successWppLink').href = 'https://api.whatsapp.com/send?phone=5514991081875&text=' + encodeURIComponent(msgTexto);
     successEl.style.display = 'flex';
 
     /* Auto-open WhatsApp */
